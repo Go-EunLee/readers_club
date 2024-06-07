@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Sign up Form</title>
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" th:href="@{/css/join.css}">
+</head>
+
+<body>
+        <form th:method="post" th:action="@{/users/join}" th:object="${userJoinRequest}">
+            <h1>Sign Up</h1>
+                <label th:for="email">Email</label> <div th:class="join-error-class" th:errors="*{email}"></div>
+                <input type="text" th:field="*{email}" th:errorclass="error-input"/>
+
+
+                <label th:for="password">Password</label> <div th:class="join-error-class" th:errors="*{password}"></div>
+                <input type="password" th:field="*{password}" th:errorclass="error-input"/>
+
+
+                <label th:for="nickname">Nickname</label> <div th:class="join-error-class" th:errors="*{nickname}"></div>
+                <input type="text" th:field="*{nickname}" th:errorclass="error-input"/>
+
+
+                <label th:for="myName">Name</label> <div th:class="join-error-class" th:errors="*{myName}"></div>
+                <input type="text" th:field="*{myName}" th:errorclass="error-input"/>
+
+
+                <label th:for="age">Age</label> <div th:class="join-error-class" th:errors="*{age}"></div>
+                <input type="number" th:field="*{age}" th:errorclass="error-input"/>
+
+
+                <label th:for="phoneNumber">Phone Number</label> <div th:class="join-error-class" th:errors="*{phoneNumber}"></div>
+                <input type="text" th:field="*{phoneNumber}" th:errorclass="error-input"/>
+
+
+                <button type="submit">Sign Up</button>
+                <p class="message">Already registered? <a href="/users/login">Login</a></p>
+
+        </form>
+</body>
+</html>

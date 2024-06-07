@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header.html :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도서 게시판 작성</title>
+    <link rel="stylesheet" th:href="@{/css/write.css}">
+</head>
+
+<body>
+
+<div th:replace="fragments/header.html :: header"></div>
+<div class="all-body">
+<div class="container">
+    <h1>도서 게시판 작성</h1>
+    <div class="search-section">
+        <button id="search-button" onclick="openPopup()" type="button" style="margin-bottom: 15px">도서 검색</button>
+    </div>
+    <script th:src="@{/js/popup.js}"></script>
+
+    <form id="book-form" th:object="${boardCreateRequest}" th:method="post" enctype="multipart/form-data">
+    <div class="form-group">
+            <div class="title">
+                <label for="add_form_title" th:text="title">제목</label>
+                <input id="add_form_title" type="text" th:field="*{title}">
+            </div>
+
+            <div class="form-group">
+                <label for="add_form_author" th:text="author">저자</label>
+                <input id="add_form_author" type="text" th:field="*{author}">
+            </div>
+            <div class="form-group">
+                <label for="add_form_publishYear" th:text="publishYear">출간일</label>
+                <input id="add_form_publishYear" type="text" th:field="*{publishYear}">
+            </div>
+            <div class="form-group">
+                <label th:text="category">카테고리</label>
+                <select th:field="*{category}">
+                    <option th:value="novel">소설</option>
+                    <option th:value="poem">시</option>
+                    <option th:value="essay">에세이</option>
+                    <option th:value="cooking">요리</option>
+                    <option th:value="health">건강</option>
+                    <option th:value="sport">스포츠</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="add_form_imageUrl" th:text="imageUrl">표지 : </label>
+                <input id="add_form_imageUrl" class="form-control" th:field="*{imageUrl}">
+            </div>
+            <div class="form-group">
+                <label for="add_form_description" th:text="body">내용 : </label>
+                <label>
+                    <textarea id="add_form_description" rows="5" th:field="*{body}"></textarea>
+                </label>
+            </div>
+        </div>
+
+        <div align="center">
+            <button type="submit">등록</button>
+        </div>
+    </form>
+</div>
+</div>
+</body>
+</html>

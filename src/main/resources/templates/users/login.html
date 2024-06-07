@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <title>Login Page</title>
+</head>
+<body>
+<div class="login-page">
+    <div class="form">
+    <form class="login-form" th:method="post" th:action="@{/users/login}" th:object="${userLoginRequest}" align="left">
+        <input type="text" th:field="*{email}" placeholder="email"/>
+        <input type="password" th:field="*{password}" placeholder="password"/>
+        <div id="login-fail" class="login-error" hidden>아이디 또는 비밀번호가 일치하지 않습니다.</div>
+        <button type="submit">로그인</button>
+        <p class="message">Not registered? <a href="/users/join">Create an account</a></p>
+    </form>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    window.onload = function () {
+        if(location.href.includes("fail")) {
+            document.getElementById("login-fail").removeAttribute("hidden");
+        }
+    }
+</script>
+
+</body>
+</html>

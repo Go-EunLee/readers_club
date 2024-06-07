@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header.html :: head"></head>
+<head>
+    <title>User Delete</title>
+    <link rel="stylesheet" th:href="@{/css/userDelete.css}">
+</head>
+
+<body>
+<div th:replace="fragments/header.html :: header"></div>
+
+<div class="container">
+    <h2>Delete Account</h2>
+    <form id="delete-account-form" th:method="post" th:action="@{/users/delete}" th:object="${userDto}">
+        <div class="form-group">
+            <label th:for="nowPassword">현재 비밀번호</label>
+            <input type="password" th:field="*{nowPassword}" placeholder="현재 비밀번호"/>
+        </div>
+
+        <div class="form-group">
+            <button class="delete-button" type="button" onclick="clickDelete()">회원 탈퇴</button>
+        </div>
+    </form>
+</div>
+<script th:inline="javascript">
+    function clickDelete() {
+        if (confirm("탈퇴하면 작성한 글, 댓글, 좋아요가 모두 삭제되고 계정을 복구할 수 없습니다.\n정말 탈퇴하시겠습니까?") == true) {
+            document.getElementById('delete-form').submit();
+        }
+    }
+</script>
+</body>
+</html>

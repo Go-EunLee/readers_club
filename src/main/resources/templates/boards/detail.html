@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/header.html :: head"></head>
+<head>
+    <title>Board Detail</title>
+    <link rel="stylesheet" th:href="@{/css/boardDetail.css}">
+</head>
+
+<body>
+<div th:replace="fragments/header.html :: header"></div>
+<div class="container">
+    <div class="book-detail">
+        <img th:src="@{${boardDto.imageUrl}}" alt="Book Cover" class="book-cover">
+
+        <div class="book-info">
+            <h1 th:text="*{boardDto.title}"></h1>
+            <p th:text="'출간일 : ' + *{boardDto.publishYear}"></p>
+            <p th:text="'장르 : ' + *{boardDto.category}"></p>
+            <p th:text="*{boardDto.body}"></p>
+            <p th:text="'작성자 : ' + *{boardDto.userNickname}"></p>
+            <div th:text="'작성일 : ' + ${#temporals.format(boardDto.createdAt, 'yy/MM/dd HH:mm')}"></div>
+            <div th:text="'최근 수정일 : ' + ${#temporals.format(boardDto.modifiedAt, 'yy/MM/dd HH:mm')}"></div>
+        </div>
+    </div>
+
+
+    <div class="action-section" sec:authorize="isAuthenticated()">
+        <!--하트 이미지-->
+        <div th:if="${greatCheck == false}" class="like-section">
+            <button type="button" class="heart-icon-button"
+                    th:onclick="|location.href='@{/greats/add/{boardId} (boardId=${boardDto.id})}'|">
+                <img class="heart-icon" src="/images/empty-hearts.svg" alt="">
+            </button>
+            <span>[[${boardDto.greatCount}]]</span>
+        </div>
+        <div th:unless="${greatCheck == false}" class="like-section">
+            <button type="button" onclick="deleteLike()" class="heart-icon-button">
+                <img class="heart-icon" src="/images/fill-hearts.svg" alt="">
+            </button>
+            <span>[[${boardDto.greatCount}]]</span>
+        </div>
+
+        <!--게시글 수정, 삭제 버튼-->
+        <div id="post-actions" th:if="${loginUserEmail == boardDto.userEmail}">
+            <button class="post-edit" onclick="clickEdit()" >수정</button>
+            <button class="post-delete" onclick="clickDelete()">삭제</button>
+        </div>
+    </div>
+
+    <!--댓글-->
+    <div class="comments-section">
+        <h2>댓글</h2>
+        <form th:object="${commentCreateRequest}"  th:method="post" th:action="|@{/comments/{boardId} (boardId=${boardDto.id})}|">
+            <!-- 로그인 했을 때 -->
+            <div sec:authorize="isAuthenticated()" class="comment-form" >
+                <input type="text" class="comment-text" th:field="*{body}" placeholder="댓글을 입력해 주세요">
+                <button type="submit" class="comment-submit">댓글 작성</button>
+            </div>
+            <!-- 로그인 안 했을 때 -->
+            <div sec:authorize="isAnonymous()" class="comment-form" >
+                <textarea class="comment-text" th:field="*{body}" placeholder="로그인한 유저만 댓글을 작성할 수 있습니다" readonly></textarea>
+            </div>
+        </form>
+
+
+        <h3 th:text="${commentList.size()} + '개의 댓글'"></h3>
+        <div class="comment" th:each="comment : ${commentList}">
+            <form th:method="post" th:action="|@{/comments/{commentId}/edit (commentId=${comment.id})}|">
+
+                <p><strong th:text="${comment.user.nickname}"></strong></p>
+                <span th:text="'작성일 : ' + ${#temporals.format(comment.createdAt, 'yy/MM/dd HH:mm')}"></span>
+
+                <div th:if="${comment.user.email == loginUserEmail}">
+                    <textarea rows="2" th:name="newBody" style="margin-bottom: 10px; width: 100%">[[${comment.body}]]</textarea>
+                </div>
+                <div th:unless="${comment.user.email == loginUserEmail}">
+                    <textarea rows="2" th:text="${comment.body}" style="margin-bottom: 10px; width: 100%" readonly></textarea>
+                </div>
+
+                <div th:if="${comment.user.email == loginUserEmail}" class="comment-actions">
+                    <button type="submit" class="comment-edit"
+                            th:onclick="|location.href='@{/comments/{commentId}/edit (commentId=${comment.id})}'|">수정</button>
+                    <button type="button" class="comment-delete"
+                            th:onclick="|location.href='@{/comments/{commentId}/delete (commentId=${comment.id})}'|">삭제</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+<script th:inline="javascript">
+    function clickEdit() {
+        location.href = "/boards/" + [[${category}]] + "/" + [[${boardDto.id}]] + "/edit";
+    }
+    function clickDelete() {
+        if (confirm("해당 글을 삭제 하시겠습니까?") === true) {
+            location.href = "/boards/" + [[${category}]] + "/" + [[${boardDto.id}]] + "/delete";
+        }
+    }
+    function deleteLike() {
+        if (confirm("좋아요를 취소 하시겠습니까?") === true) {
+            location.href = "/greats/delete/" + [[${boardDto.id}]];
+        }
+    }
+
+
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head th:replace="fragments/header.html :: head"></head>
+<head>
+    <title>Board Detail</title>
+    <link rel="stylesheet" th:href="@{/css/myPage.css}">
+</head>
+
+<body>
+<div th:replace="fragments/header.html :: header"></div>
+<div class="container">
+    <header class="user-info">
+        <div class="nickname"><span id="nickname" th:text="*{user.nickname}">User123</span></div>
+        <div class="stats">
+            <div>Posts: <span id="post-count" th:text="*{boards.size()}"></span></div>
+            <div>Comments: <span id="comment-count" th:text="*{comments.size()}"></span></div>
+            <div>Likes: <span id="like-count" th:text="*{greats.size()}"></span></div>
+        </div>
+    </header>
+    <nav class="nav">
+        <button onclick="showSection('posts')">My Posts</button>
+        <button onclick="showSection('comments')">My Comments</button>
+        <button onclick="showSection('likes')">Liked Posts</button>
+    </nav>
+    <main class="content">
+        <section id="posts" class="section">
+            <div class="post" th:each="board : ${boards}"
+                 th:onclick="|location.href='@{/boards/{category}/{boardId} (category=${board.boardCategory}, boardId=${board.id})}'|">
+                <h3 class="post-title" th:text="${board.title}"></h3>
+            </div>
+        </section>
+        <section id="comments" class="section">
+            <div class="comment" th:each="comment : ${comments}"
+                 th:onclick="|location.href='@{/boards/{category}/{boardId} (category=${comment.board.boardCategory}, boardId=${comment.board.id})}'|">
+                <p class="comment-content" th:text="${comment.body}"></p>
+                <p class="post-title"><strong th:text="${comment.board.title}">Post Title 1</strong></p>
+            </div>
+        </section>
+        <section id="likes" class="section">
+            <div class="post" th:each="great : ${greats}"
+                 th:onclick="|location.href='@{/boards/{category}/{boardId} (category=${great.board.boardCategory}, boardId=${great.board.id})}'|">
+                <h3 class="post-title" th:text="${great.board.title}"></h3>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="/js/myPage.js"></script>
+
+</body>
+</html>

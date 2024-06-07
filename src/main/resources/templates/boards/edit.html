@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/header.html :: head"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도서 게시판 작성</title>
+    <link rel="stylesheet" th:href="@{/css/write.css}">
+</head>
+
+<body>
+
+<div th:replace="fragments/header.html :: header"></div>
+<div class="all-body">
+<div class="container">
+    <form id="book-form" th:object="${boardDto}" th:method="post"
+          th:action="|@{/boards/{category}/{boardId}/edit (category = ${category}, boardId=${boardDto.id})}|" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="title">
+                <label th:for="title">제목 : </label>
+                <input type="text" th:field="*{title}">
+            </div>
+            <div class="form-group">
+                <label th:for="author">저자 : </label>
+                <input type="text" th:field="*{author}">
+            </div>
+            <div class="form-group">
+                <label th:for="category">카테고리</label>
+                <select th:field="*{category}">
+                    <option th:value="novel">소설</option>
+                    <option th:value="poem">시</option>
+                    <option th:value="essay">에세이</option>
+                    <option th:value="cooking">요리</option>
+                    <option th:value="health">건강</option>
+                    <option th:value="sport">스포츠</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label th:for="publishYear">출간년도(yyyymmdd) : </label>
+                <input type="text" th:field="*{publishYear}">
+            </div>
+            <div class="form-group">
+                <label th:for="imageUrl">표지 : </label>
+                <input type="text" class="form-control" th:field="*{imageUrl}">
+            </div>
+            <div class="form-group">
+                <label th:for="body">내용 : </label>
+                <textarea rows="10" th:field="*{body}"></textarea>
+            </div>
+        </div>
+
+        <div align="center">
+            <button class="btn edit-btn" type="submit">수정 완료</button>
+            <button class="btn del-btn" type="button" th:onclick="|location.href='@{/boards/list'|">취소</button>
+        </div>
+    </form>
+</div>
+</div>
+</body>
+</html>
