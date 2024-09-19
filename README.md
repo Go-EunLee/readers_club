@@ -37,15 +37,30 @@
 
 ## 화면 구성
 |메인 페이지|개별 게시글|
-|-----------|----------|
-|
+|:----------------:|:---------------:|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/user-attachments/assets/28487e07-3c44-4666-85f9-bf67c110958e">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<img src="https://github.com/user-attachments/assets/cba9396f-e48f-4bdf-b43c-d65e8155504e">|
+|도서 검색|마이 페이지|
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://github.com/user-attachments/assets/84964e4c-688c-446f-a6a5-979f9db7a257">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<img src="https://github.com/user-attachments/assets/eda17502-7953-4a16-9f0a-82cbe455b869">|
+
+<br>
 
 ## 사용 기술
+<div align=center>
+  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
+  <br>
+  
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
+  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> 
+  <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+  <br>
+  
+</div>
 
-
-### 아키텍처
-
-
+<br>
 <br>
 
 ## 프로젝트 구조
